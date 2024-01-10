@@ -65,18 +65,6 @@ class Test_Tobeto_Demo():
     assert errorMessage2.text == c.EMPTYMESSAGE
     self.driver.close()
 
-
-  def test_invalidEmail(self):
-    registerId = self.driver.find_element(By.LINK_TEXT, c.REGISTER)
-    registerId .click()
-    emailName = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.NAME, "email")))
-    emailName.click
-    emailName.send_keys("abcd")
-    errorMessage = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH, c.INVALID_EMAIL_XPATH))) 
-    assert errorMessage.text == c.INVALID_EMAIL 
-    
-
-
   @pytest.mark.parametrize("email,password",getData())
   def test_valid_Login(self,email,password):
     emailInput = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.NAME, c.EMAIL_NAME)))
@@ -90,6 +78,16 @@ class Test_Tobeto_Demo():
     validLogin = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH, c.VALID_LOGIN_XPATH)))
     assert validLogin.text == c.VALID_LOGIN
     self.driver.close()
+  
+
+  def test_invalidEmail(self):
+    registerId = self.driver.find_element(By.LINK_TEXT, c.REGISTER)
+    registerId .click()
+    emailName = WebDriverWait(self.driver, 5).until(ec.visibility_of_element_located((By.NAME, "email")))
+    emailName.click
+    emailName.send_keys("abcd")
+    errorMessage = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH, c.INVALID_EMAIL_XPATH))) 
+    assert errorMessage.text == c.INVALID_EMAIL 
   
 
   @pytest.mark.parametrize("firstName,lastName,email,password,passwordAgain,phoneNumber", getData1()) 
@@ -126,9 +124,9 @@ class Test_Tobeto_Demo():
     WebDriverWait(self.driver, 10).until(ec.frame_to_be_available_and_switch_to_it((By.XPATH, "//iframe[starts-with(@name, 'a-') and starts-with(@src, 'https://www.google.com/recaptcha')]")))
     recaptcha = WebDriverWait(self.driver, 20).until(ec.element_to_be_clickable((By.CLASS_NAME, "recaptcha-checkbox-border")))
     recaptcha.click()
-    #self.driver.switch_to.default_content()
-    #self.driver.execute_script("window.scrollTo(0,500)")
-    finalRegister = self.driver.find_element(By.XPATH, c.FINAL_REGISTER_XPATH)
+    self.driver.switch_to.default_content()
+    sleep(60)
+    finalRegister = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH, c.FINAL_REGISTER_XPATH)))
     finalRegister.click()
     cantRegister = WebDriverWait(self.driver,5).until(ec.visibility_of_element_located((By.XPATH, c.CANT_REGISTER_XPATH)))
     assert cantRegister.text == c.CANT_REGISTER
