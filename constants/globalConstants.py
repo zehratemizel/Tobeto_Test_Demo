@@ -33,3 +33,6 @@ MAX_PHONE_NUMBER = "En fazla 10 karakter girebilirsiniz. "
 EMPTY_PHONE_NUMBER_XPATH = "/html/body/div[4]/div/div/div/div/div/label[4]/small/p[1]"
 EMPTY_PHONE_NUMBER = "Doldurulması zorunlu alan*"
 MISSING_PASSWORD = "• Şifreniz en az 6 karakterden oluşmalıdır."
+UNMATCHED_PASSWORD = "• Şifreler eşleşmedi"
+INVALID_INFORMATIONS = "• 2 errors occured"
+
